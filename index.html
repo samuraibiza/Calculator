@@ -8,32 +8,28 @@
   </head>
   <body>
     <div class="calc-body">
-      <div class="calc-screen">1</div>
+      <input readonly class="calc-screen"></input>
       <div class="calc-buttons">
-        <button class="C-btn calc-btn" type="button" onclick="setZero()">
-          C
-        </button>
-        <button class="root-btn calc-btn">Root</button>
-        <button class="del-btn calc-btn">Del</button>
-        <button class="divide-btn calc-btn">/</button>
-        <button class="seven-btn calc-btn">7</button>
-        <button class="eight-btn calc-btn">8</button>
-        <button class="nine-btn calc-btn">9</button>
-        <button class="multiply-btn calc-btn">x</button>
-        <button class="four-btn calc-btn">4</button>
-        <button class="five-btn calc-btn">5</button>
-        <button class="six-btn calc-btn">6</button>
-        <button class="plus-btn calc-btn">+</button>
-        <button class="one-btn calc-btn">1</button>
-        <button class="two-btn calc-btn">2</button>
-        <button class="three-btn calc-btn">3</button>
-        <button class="minus-btn calc-btn">-</button>
-        <button class="negate-btn calc-btn">+/-</button>
-        <button class="zero-btn calc-btn">0</button>
-        <button class="decimal-btn calc-btn">.</button>
-        <button class="equals-btn calc-btn" type="button" onclick="sum()">
-          =
-        </button>
+        <button onclick="setZero()">C</button>
+        <button onclick="root()">Root</button>
+        <button onclick="sliceValue()">Del</button>
+        <button onclick="addValue('/')">/</button>
+        <button onclick="addValue('7')">7</button>
+        <button onclick="addValue('8')">8</button>
+        <button onclick="addValue('9')">9</button>
+        <button onclick="addValue('*')">x</button>
+        <button onclick="addValue('4')">4</button>
+        <button onclick="addValue('5')">5</button>
+        <button onclick="addValue('6')">6</button>
+        <button onclick="addValue('+')">+</button>
+        <button onclick="addValue('1')">1</button>
+        <button onclick="addValue('2')">2</button>
+        <button onclick="addValue('3')">3</button>
+        <button onclick="addValue('-')">-</button>
+        <button class="negate-btn">+/-</button>
+        <button onclick="addValue('0')">0</button>
+        <button onclick="addValue('.')">.</button>
+        <button class="equals-btn" onclick="result()">=</button>
       </div>
     </div>
     <script src="/script.js"></script>
