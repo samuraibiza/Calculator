@@ -18,28 +18,35 @@ const AddValueKeys = [
 ];
 
 window.addEventListener("keydown", (addValueKeyEvent) => {
+  switch (addValueKeyEvent.key) {
+    case "Backspace":
+    case "Delete":
+      calcScreen.value = calcScreen.value.slice(0, -1);
+      break;
+    case "c":
+    case "Escape":
+      calcScreen.value = "";
+      break;
+    case "r":
+      calcScreen.value = Math.sqrt(calcScreen.value);
+      break;
+    case "n":
+      if (calcScreen.value[0] === "-") {
+        calcScreen.value = calcScreen.value.slice(1);
+      } else {
+        calcScreen.value = "-" + calcScreen.value;
+      }
+      break;
+    case "Enter":
+    case " ":
+      calcScreen.value = eval(calcScreen.value);
+      break;
+    case AddValueKeys:
+      calcScreen.value += addValueKeyEvent.key;
+      break;
+  }
   if (AddValueKeys.includes(addValueKeyEvent.key)) {
     calcScreen.value += addValueKeyEvent.key;
-  } else if (
-    addValueKeyEvent.key === "Backspace" ||
-    addValueKeyEvent.key === "Delete"
-  ) {
-    calcScreen.value = calcScreen.value.slice(0, -1);
-  } else if (
-    addValueKeyEvent.key === "Escape" ||
-    addValueKeyEvent.key === "c"
-  ) {
-    calcScreen.value = "";
-  } else if (addValueKeyEvent.key === "r") {
-    calcScreen.value = Math.sqrt(calcScreen.value);
-  } else if (addValueKeyEvent.key === "n") {
-    if (calcScreen.value[0] == "-") {
-      calcScreen.value = calcScreen.value.slice(1);
-    } else {
-      calcScreen.value = "-" + calcScreen.value;
-    }
-  } else if (addValueKeyEvent.key === " " || addValueKeyEvent.key === "Enter") {
-    calcScreen.value = eval(calcScreen.value);
   } else {
     return;
   }
