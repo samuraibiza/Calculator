@@ -1,11 +1,12 @@
+import React from "react";
 
 interface Props {
   label: string;
-  onAddValue: (addedValue: string) => void;
+  onButtonClick: (addedValue: string) => void;
 }
 
-const CalcButton = ({ label, onAddValue }: Props) => {
-  return <button onClick={() => onAddValue(label)}>{label}</button>;
-};
+const CalcButton = React.memo(({ label, onButtonClick }: Props) => {
+  return <button onClick={() => onButtonClick(label)}>{label}</button>;
+});
 
 export default CalcButton;

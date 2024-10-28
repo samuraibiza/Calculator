@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import CalcButton from "./components/CalcButton";
 import CalcScreen from "./components/CalcScreen";
@@ -28,6 +28,44 @@ function App() {
     setCalcScreenValue((calcScreenValue) => (calcScreenValue += addedValue));
   };
 
+  useEffect(() => {
+    const addValueKeyEvent = (keyPressed: KeyboardEvent) => {
+      switch (keyPressed.key) {
+        case "Backspace":
+        case "Delete":
+          setCalcScreenValue((calcScreenValue) => calcScreenValue.slice(0, -1));
+          break;
+        case "c":
+        case "Escape":
+          setCalcScreenValue("");
+          break;
+        case "r":
+          setCalcScreenValue((calcScreenValue) =>
+            Math.sqrt(parseFloat(calcScreenValue)).toString()
+          );
+          break;
+        case "n":
+          if (calcScreenValue[0] === "-") {
+            setCalcScreenValue(calcScreenValue.slice(1));
+          } else {
+            setCalcScreenValue((calcScreenValue) => "-" + calcScreenValue);
+          }
+          break;
+        case "Enter":
+        case " ":
+          setCalcScreenValue((calcScreenValue) => eval(calcScreenValue));
+          break;
+      }
+      if (numberButtons.includes(keyPressed.key)) {
+        handleAddValue(keyPressed.key);
+      }
+    };
+    window.addEventListener("keydown", addValueKeyEvent);
+    return () => {
+      window.removeEventListener("keydown", addValueKeyEvent);
+    };
+  }, []);
+
   return (
     <div className="container d-flex justify-content-center">
       <div className="container d-flex flex-wrap gap-4 justify-content-center ">
@@ -35,17 +73,34 @@ function App() {
         {numberButtons.map((number) => (
           <CalcButton
             label={number}
-            onAddValue={() => {
+            onButtonClick={() => {
               handleAddValue(number);
             }}
-          ></CalcButton>
+          />
         ))}
         <CalcButton
-          label="="
-          onAddValue={() => {
-            setCalcScreenValue((calcScreenValue) => eval(calcScreenValue));
+          label="root"
+          onButtonClick={() => {
+            const findRoot = Math.sqrt(parseFloat(calcScreenValue));
+            setCalcScreenValue(findRoot.toString());
           }}
-        ></CalcButton>
+        />
+        <CalcButton
+          label="+/-"
+          onButtonClick={() => {
+            if (calcScreenValue[0] === "-") {
+              setCalcScreenValue(calcScreenValue.slice(1));
+            } else {
+              setCalcScreenValue((calcScreenValue) => "-" + calcScreenValue);
+            }
+          }}
+        />
+        <CalcButton
+          label="="
+          onButtonClick={() => {
+            setCalcScreenValue(eval(calcScreenValue));
+          }}
+        />
       </div>
     </div>
   );

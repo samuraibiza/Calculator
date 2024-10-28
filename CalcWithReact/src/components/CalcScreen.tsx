@@ -1,19 +1,19 @@
+import React from "react";
 interface Props {
   value: string;
 }
 
-function CalcScreen({ value }: Props) {
+const CalcScreen = React.memo(({ value }: Props) => {
   return (
     <input
       readOnly
       type="text"
-      className="form-control"
+      className="form-control text-end"
       placeholder={value}
       aria-label="Username"
       aria-describedby="basic-addon1"
-    >      
-    </input>
+    ></input>
   );
-}
+});
 
 export default CalcScreen;

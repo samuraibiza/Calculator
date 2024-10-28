@@ -41,15 +41,11 @@ window.addEventListener("keydown", (addValueKeyEvent) => {
     case " ":
       calcScreen.value = eval(calcScreen.value);
       break;
-    case AddValueKeys:
-      calcScreen.value += addValueKeyEvent.key;
-      break;
+    // case AddValueKeys.forEach:
+    //   calcScreen.value += addValueKeyEvent.key;
+    //   break;
   }
-  if (AddValueKeys.includes(addValueKeyEvent.key)) {
-    calcScreen.value += addValueKeyEvent.key;
-  } else {
-    return;
-  }
+  if (AddValueKeys.includes(addValueKeyEvent.key)) {(calcScreen.value += addValueKeyEvent.key)}
 });
 
 const calcScreen = document.querySelector(".calc-screen");
