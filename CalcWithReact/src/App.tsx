@@ -28,6 +28,20 @@ function App() {
     setCalcScreenValue((calcScreenValue) => (calcScreenValue += addedValue));
   };
 
+  const handleFindeRoot = () => {
+    setCalcScreenValue((calcScreenValue) =>
+      Math.sqrt(parseFloat(calcScreenValue)).toString()
+    );
+  };
+
+  const handleNegate = () => {
+    if (calcScreenValue[0] === "-") {
+      setCalcScreenValue(calcScreenValue.slice(1));
+    } else {
+      setCalcScreenValue((calcScreenValue) => "-" + calcScreenValue);
+    }
+  };
+
   useEffect(() => {
     const addValueKeyEvent = (keyPressed: KeyboardEvent) => {
       switch (keyPressed.key) {
@@ -40,16 +54,10 @@ function App() {
           setCalcScreenValue("");
           break;
         case "r":
-          setCalcScreenValue((calcScreenValue) =>
-            Math.sqrt(parseFloat(calcScreenValue)).toString()
-          );
+          handleFindeRoot();
           break;
         case "n":
-          if (calcScreenValue[0] === "-") {
-            setCalcScreenValue(calcScreenValue.slice(1));
-          } else {
-            setCalcScreenValue((calcScreenValue) => "-" + calcScreenValue);
-          }
+          handleNegate();
           break;
         case "Enter":
         case " ":
@@ -64,7 +72,7 @@ function App() {
     return () => {
       window.removeEventListener("keydown", addValueKeyEvent);
     };
-  }, []);
+  }, [calcScreenValue]);
 
   return (
     <div className="container d-flex justify-content-center">
@@ -88,11 +96,7 @@ function App() {
         <CalcButton
           label="+/-"
           onButtonClick={() => {
-            if (calcScreenValue[0] === "-") {
-              setCalcScreenValue(calcScreenValue.slice(1));
-            } else {
-              setCalcScreenValue((calcScreenValue) => "-" + calcScreenValue);
-            }
+            handleNegate()
           }}
         />
         <CalcButton
