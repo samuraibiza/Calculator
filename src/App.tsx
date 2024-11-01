@@ -28,17 +28,23 @@ function App() {
     setCalcScreenValue((calcScreenValue) => (calcScreenValue += addedValue));
   };
 
-  const handleFindeRoot = () => {
-    setCalcScreenValue((calcScreenValue) =>
-      Math.sqrt(parseFloat(calcScreenValue)).toString()
-    );
+  const handleFindRoot = () => {
+    setCalcScreenValue(Math.sqrt(parseFloat(calcScreenValue)).toString());
+  };
+
+  const handleDelete = () => {
+    setCalcScreenValue(calcScreenValue.slice(0, -1));
+  };
+
+  const handleResult = () => {
+    setCalcScreenValue(eval(calcScreenValue).toString());
   };
 
   const handleNegate = () => {
     if (calcScreenValue[0] === "-") {
       setCalcScreenValue(calcScreenValue.slice(1));
     } else {
-      setCalcScreenValue((calcScreenValue) => "-" + calcScreenValue);
+      setCalcScreenValue("-" + calcScreenValue);
     }
   };
 
@@ -47,21 +53,21 @@ function App() {
       switch (keyPressed.key) {
         case "Backspace":
         case "Delete":
-          setCalcScreenValue((calcScreenValue) => calcScreenValue.slice(0, -1));
+          handleDelete();
           break;
         case "c":
         case "Escape":
           setCalcScreenValue("");
           break;
         case "r":
-          handleFindeRoot();
+          handleFindRoot();
           break;
         case "n":
           handleNegate();
           break;
         case "Enter":
         case " ":
-          setCalcScreenValue((calcScreenValue) => eval(calcScreenValue));
+          handleResult();
           break;
       }
       if (numberButtons.includes(keyPressed.key)) {
@@ -77,6 +83,12 @@ function App() {
   return (
     <div className="container d-flex justify-content-center">
       <div className="container d-flex flex-wrap gap-4 justify-content-center ">
+        <CalcButton
+          label="reset"
+          onButtonClick={() => {
+            setCalcScreenValue("");
+          }}
+        />
         <CalcScreen value={calcScreenValue}></CalcScreen>
         {numberButtons.map((number) => (
           <CalcButton
@@ -89,20 +101,25 @@ function App() {
         <CalcButton
           label="root"
           onButtonClick={() => {
-            const findRoot = Math.sqrt(parseFloat(calcScreenValue));
-            setCalcScreenValue(findRoot.toString());
+            handleFindRoot();
+          }}
+        />
+        <CalcButton
+          label="del"
+          onButtonClick={() => {
+            handleDelete();
           }}
         />
         <CalcButton
           label="+/-"
           onButtonClick={() => {
-            handleNegate()
+            handleNegate();
           }}
         />
         <CalcButton
           label="="
           onButtonClick={() => {
-            setCalcScreenValue(eval(calcScreenValue));
+            handleResult();
           }}
         />
       </div>
