@@ -25,7 +25,7 @@ function App() {
   ];
 
   const handleAddValue = (addedValue: string) => {
-    setCalcScreenValue((calcScreenValue) => (calcScreenValue += addedValue));
+    setCalcScreenValue(calcScreenValue + addedValue);
   };
 
   const handleFindRoot = () => {
